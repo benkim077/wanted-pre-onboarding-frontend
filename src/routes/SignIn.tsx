@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import validateAuthForm from '@Utils/validateAuthForm';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -13,18 +14,6 @@ export default function SignIn() {
   const handleChangePassword = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setPassword(value);
-  };
-
-  const validateSignUpForm = (email: string, password: string) => {
-    return validateEmail(email) && validatePassword(password);
-
-    function validateEmail(email: string) {
-      return email.includes('@');
-    }
-
-    function validatePassword(password: string) {
-      return password.length >= 8;
-    }
   };
 
   const navigate = useNavigate();
@@ -41,7 +30,7 @@ export default function SignIn() {
       <form onSubmit={handleSubmit}>
         <input type='text' placeholder='Email' data-testid='email-input' onChange={handleChangeEmail} value={email} />
         <input type='password' placeholder='Password' data-testid='password-input' onChange={handleChangePassword} value={password} />
-        <button type='submit' data-testid='signin-button' disabled={!validateSignUpForm(email, password)}>
+        <button type='submit' data-testid='signin-button' disabled={!validateAuthForm(email, password)}>
           로그인
         </button>
       </form>

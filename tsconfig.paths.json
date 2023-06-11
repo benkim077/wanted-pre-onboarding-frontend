@@ -6,7 +6,8 @@
       // "@Components/*": ["components/*"],
       "@Apis/*": ["apis/*"],
       "@Routes/*": ["routes/*"],
-      "@Types/*": ["types/*"]
+      "@Types/*": ["types/*"],
+      "@Utils/*": ["utils/*"]
     }
   }
 }
