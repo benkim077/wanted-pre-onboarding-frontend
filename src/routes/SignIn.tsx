@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { requestSignUp } from '@Apis/auth';
 import { useNavigate } from 'react-router-dom';
 
-export default function SignUp() {
+export default function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -33,21 +32,17 @@ export default function SignUp() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const { status } = await requestSignUp({ email, password });
-
-    if (status === 201) {
-      navigate('/signin');
-    }
+    console.log('로그인 요청');
   };
 
   return (
     <>
-      <h1>회원가입</h1>
+      <h1>로그인</h1>
       <form onSubmit={handleSubmit}>
         <input type='text' placeholder='Email' data-testid='email-input' onChange={handleChangeEmail} value={email} />
         <input type='password' placeholder='Password' data-testid='password-input' onChange={handleChangePassword} value={password} />
-        <button type='submit' data-testid='signup-button' disabled={!validateSignUpForm(email, password)}>
-          회원가입
+        <button type='submit' data-testid='signin-button' disabled={!validateSignUpForm(email, password)}>
+          로그인
         </button>
       </form>
     </>
