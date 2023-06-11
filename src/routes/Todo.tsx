@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLoaderData } from 'react-router-dom';
 import { TodoItem } from '@Types/todo';
 import List from '@Components/List';
-import { createTodo } from '@Apis/todo';
+import { createTodo, getTodos } from '@Apis/todo';
 
 export default function Todo() {
-  const [todos, setTodos] = useState<TodoItem[]>([]);
+  const initial_todos = useLoaderData() as TodoItem[];
+  const [todos, setTodos] = useState(initial_todos);
 
   const [newTodo, setNewTodo] = useState('');
 
@@ -54,3 +55,9 @@ export default function Todo() {
     </>
   );
 }
+
+export const loader = async () => {
+  const { data } = await getTodos();
+
+  return data;
+};

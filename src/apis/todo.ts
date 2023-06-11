@@ -16,3 +16,13 @@ export const createTodo = async (todo: string): Promise<AxiosResponse<TodoItem>>
 
   return res;
 };
+
+export const getTodos = async (): Promise<AxiosResponse<TodoItem[]>> => {
+  const res = await instance.get('/todos', {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+
+  return res;
+};
