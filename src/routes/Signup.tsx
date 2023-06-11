@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { requestSignUp } from '@Apis/auth';
 import { useNavigate } from 'react-router-dom';
 import validateAuthForm from '@Utils/validateAuthForm';
@@ -28,6 +28,14 @@ export default function SignUp() {
       navigate('/signin');
     }
   };
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem('accessToken');
+
+    if (accessToken) {
+      navigate('/todo');
+    }
+  }, []);
 
   return (
     <>
