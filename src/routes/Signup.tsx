@@ -1,4 +1,5 @@
-import React, { ChangeEvent, useState } from 'react';
+import React, { useState } from 'react';
+import { requestSignUp } from '@Apis/auth';
 
 export default function Signup() {
   const [email, setEmail] = useState('');
@@ -26,9 +27,11 @@ export default function Signup() {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     console.log(`email: ${email}, password: ${password}`);
+    const res = await requestSignUp({ email, password });
+    console.log(res);
   };
 
   return (
