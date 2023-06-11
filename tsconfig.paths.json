@@ -3,8 +3,8 @@
     "baseUrl": "src",
     "paths": {
       // "@/*": ["*"],
-      // "@Components/*": ["components/*"],
       "@Apis/*": ["apis/*"],
+      "@Components/*": ["components/*"],
       "@Routes/*": ["routes/*"],
       "@Types/*": ["types/*"],
       "@Utils/*": ["utils/*"]

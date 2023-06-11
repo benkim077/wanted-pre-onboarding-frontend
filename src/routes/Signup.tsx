@@ -35,7 +35,7 @@ export default function SignUp() {
     if (accessToken) {
       navigate('/todo');
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>

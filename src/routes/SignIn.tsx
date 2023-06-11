@@ -37,7 +37,7 @@ export default function SignIn() {
     if (accessToken) {
       navigate('/todo');
     }
-  }, []);
+  }, [navigate]);
 
   return (
     <>
