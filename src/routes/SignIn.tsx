@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import validateAuthForm from '@Utils/validateAuthForm';
+import { requestSignIn } from '@Apis/auth';
 
 export default function SignIn() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,13 @@ export default function SignIn() {
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    console.log('로그인 요청');
+    const { data } = await requestSignIn({ email, password });
+
+    if (data.access_token) {
+      localStorage.setItem('accessToken', data.access_token);
+
+      navigate('/todo');
+    }
   };
 
   return (
