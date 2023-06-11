@@ -26,10 +26,15 @@ export default function Signup() {
     }
   };
 
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    console.log(`email: ${email}, password: ${password}`);
+  };
+
   return (
     <>
       <h1>회원가입</h1>
-      <form>
+      <form onSubmit={handleSubmit}>
         <input type='text' placeholder='Email' data-testid='email-input' onChange={handleChangeEmail} value={email} />
         <input type='password' placeholder='Password' data-testid='password-input' onChange={handleChangePassword} value={password} />
         <button type='submit' data-testid='signup-button' disabled={!validateSignUpForm(email, password)}>
