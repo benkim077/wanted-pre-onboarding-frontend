@@ -1,5 +1,4 @@
 import React from 'react';
-import { TodoItem } from '@Types/todo';
 
 interface ListProps<T> {
   list: Array<T>;
