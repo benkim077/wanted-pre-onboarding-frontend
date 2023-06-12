@@ -71,6 +71,12 @@ export default function Todo() {
                 <input type='checkbox' data-id={item.id} value={String(item.isCompleted)} onChange={handleTodoChange} />
                 <span>{item.todo}</span>
               </label>
+              <button type='button' data-testid='modify-button'>
+                수정
+              </button>
+              <button type='button' data-testid='delete-button'>
+                삭제
+              </button>
             </li>
           );
         }}
