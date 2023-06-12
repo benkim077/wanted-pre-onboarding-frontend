@@ -1,13 +1,33 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate, useLoaderData } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { TodoItem } from '@Types/todo';
 import List from '@Components/List';
 import Item from '@Components/Item';
 import { createTodo, getTodos, updateTodo, deleteTodo } from '@Apis/todo';
 
 export default function Todo() {
-  const initial_todos = useLoaderData() as TodoItem[];
-  const [todos, setTodos] = useState(initial_todos);
+  const [todos, setTodos] = useState<TodoItem[]>([]);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const { data, status } = await getTodos();
+
+        if (status === 401) {
+          throw new Error('Unauthorized');
+        }
+
+        setTodos(data);
+      } catch (error) {
+        console.error(error);
+        navigate('/signin');
+      }
+    };
+
+    fetchTodos();
+  }, []);
 
   const [newTodo, setNewTodo] = useState('');
 
@@ -48,8 +68,6 @@ export default function Todo() {
     };
   };
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     const accessToken = localStorage.getItem('accessToken');
 
@@ -76,9 +94,3 @@ export default function Todo() {
     </>
   );
 }
-
-export const loader = async () => {
-  const { data } = await getTodos();
-
-  return data;
-};
