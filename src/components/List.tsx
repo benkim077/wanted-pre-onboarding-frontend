@@ -9,11 +9,11 @@ interface ListProps<T> {
 export default function List<T>({ list, renderItem }: ListProps<T>) {
   return (
     <ul>
-      {list.map((item, idx) => {
+      {list.map((item, index) => {
         if (renderItem) {
-          return <li key={idx}>{renderItem(item)}</li>;
+          return <span key={index}>{renderItem(item)}</span>;
         }
-        return <li key={idx}>{String(item)}</li>;
+        return <span>{String(item)}</span>;
       })}
     </ul>
   );

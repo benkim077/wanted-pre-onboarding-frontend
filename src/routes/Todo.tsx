@@ -45,10 +45,12 @@ export default function Todo() {
         list={todos}
         renderItem={(item) => {
           return (
-            <label>
-              <input type='checkbox' value={String(item.isCompleted)} />
-              <span>{item.todo}</span>
-            </label>
+            <li>
+              <label>
+                <input type='checkbox' value={String(item.isCompleted)} />
+                <span>{item.todo}</span>
+              </label>
+            </li>
           );
         }}
       />
