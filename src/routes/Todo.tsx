@@ -23,25 +23,19 @@ export default function Todo() {
     setTodos([...todos, data]);
   };
 
-  const handleTodoChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const id = Number(event.target.dataset.id);
+  const handleUpdateTodo = (id: number, todo: string, isCompleted: boolean) => {
+    return async () => {
+      const { data } = await updateTodo(id, todo, isCompleted);
 
-    const updatedTodo = todos.find((todo) => todo.id === id);
+      const updatedTodos = todos.map((todo) => {
+        if (todo.id === id) {
+          return data;
+        }
+        return todo;
+      });
 
-    if (!updatedTodo) {
-      return;
-    }
-
-    const { data } = await updateTodo(id, updatedTodo.todo, !updatedTodo.isCompleted);
-
-    const updatedTodos = todos.map((todo) => {
-      if (todo.id === id) {
-        return data;
-      }
-      return todo;
-    });
-
-    setTodos(updatedTodos);
+      setTodos(updatedTodos);
+    };
   };
 
   const handleDeleteTodo = (id: number) => {
@@ -76,7 +70,7 @@ export default function Todo() {
       <List
         list={todos}
         renderItem={(item) => {
-          return <Item key={item.id} item={item} handleTodoChange={handleTodoChange} handleDeleteTodo={handleDeleteTodo} />;
+          return <Item key={item.id} item={item} handleUpdateTodo={handleUpdateTodo} handleDeleteTodo={handleDeleteTodo} />;
         }}
       />
     </>

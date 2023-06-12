@@ -3,15 +3,17 @@ import { TodoItem } from '@Types/todo';
 
 interface ItemProps {
   item: TodoItem;
-  handleTodoChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUpdateTodo: (id: number, todo: string, isCompleted: boolean) => () => void;
   handleDeleteTodo: (id: number) => () => void;
 }
 
-export default function Item({ item, handleTodoChange, handleDeleteTodo }: ItemProps) {
+export default function Item({ item, handleUpdateTodo, handleDeleteTodo }: ItemProps) {
+  const { id, todo, isCompleted } = item;
+
   return (
     <li>
       <label>
-        <input type='checkbox' data-id={item.id} value={String(item.isCompleted)} onChange={handleTodoChange} />
+        <input type='checkbox' checked={isCompleted} onClick={handleUpdateTodo(id, todo, !isCompleted)} />
         <span>{item.todo}</span>
       </label>
       <button type='button' data-testid='modify-button'>
