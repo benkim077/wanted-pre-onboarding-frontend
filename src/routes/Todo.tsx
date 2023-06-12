@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLoaderData } from 'react-router-dom';
 import { TodoItem } from '@Types/todo';
 import List from '@Components/List';
-import { createTodo, getTodos, updateTodo } from '@Apis/todo';
+import Item from '@Components/Item';
+import { createTodo, getTodos, updateTodo, deleteTodo } from '@Apis/todo';
 
 export default function Todo() {
   const initial_todos = useLoaderData() as TodoItem[];
@@ -43,6 +44,16 @@ export default function Todo() {
     setTodos(updatedTodos);
   };
 
+  const handleDeleteTodo = (id: number) => {
+    return async () => {
+      await deleteTodo(id);
+
+      const remainedTodo = todos.filter((todo) => todo.id !== id);
+
+      setTodos(remainedTodo);
+    };
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -65,20 +76,7 @@ export default function Todo() {
       <List
         list={todos}
         renderItem={(item) => {
-          return (
-            <li>
-              <label>
-                <input type='checkbox' data-id={item.id} value={String(item.isCompleted)} onChange={handleTodoChange} />
-                <span>{item.todo}</span>
-              </label>
-              <button type='button' data-testid='modify-button'>
-                수정
-              </button>
-              <button type='button' data-testid='delete-button'>
-                삭제
-              </button>
-            </li>
-          );
+          return <Item key={item.id} item={item} handleTodoChange={handleTodoChange} handleDeleteTodo={handleDeleteTodo} />;
         }}
       />
     </>

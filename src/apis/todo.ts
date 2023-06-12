@@ -41,3 +41,13 @@ export const updateTodo = async (id: number, todo: string, isCompleted: boolean)
 
   return res;
 };
+
+export const deleteTodo = async (id: number) => {
+  const res = await instance.delete(`todos/${id}`, {
+    headers: {
+      Authorization: `Bearer ${localStorage.getItem('accessToken')}`,
+    },
+  });
+
+  return res;
+};
