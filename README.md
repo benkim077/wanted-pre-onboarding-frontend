@@ -9,4 +9,4 @@
 
 ## 데모 영상
 
-https://youtu.be/CIA8fE0WLmo
+[https://youtu.be/CIA8fE0WLmo](https://youtu.be/snoHyWPIw4g)
